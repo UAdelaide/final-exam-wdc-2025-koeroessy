@@ -26,7 +26,6 @@ let db;
         password: '',
         database: 'DogWalkService',
       });
-      console.log('Connected to MySQL');
     } catch (err) {
       console.error('Database connection failed:', err);
     }
