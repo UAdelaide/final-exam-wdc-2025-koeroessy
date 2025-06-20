@@ -106,4 +106,40 @@ app.get('/api/dogs', async (req, res) => {
   }
 });
 
+app.get('/api/walkrequests/open', async (req, res) => {
+  try {
+    const [rows] = await db.execute(`
+      SELECT WalkRequests.request_id, Dogs.name AS dog_name, WalkRequests.requested_time,
+             WalkRequests.duration_minutes, WalkRequests.location, Users.username AS owner_username
+      FROM WalkRequests
+      JOIN Dogs ON WalkRequests.dog_id = Dogs.dog_id
+      JOIN Users ON Dogs.owner_id = Users.user_id
+      WHERE WalkRequests.status = 'open'
+    `);
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch open walk requests' });
+  }
+});
+
+app.get('/api/walkers/summary', async (req, res) => {
+  try {
+    const [rows] = await db.execute(`
+      SELECT
+        U.username AS walker_username,
+        COUNT(R.rating) AS total_ratings,
+        ROUND(AVG(R.rating), 2) AS average_rating,
+        COUNT(CASE WHEN W.status = 'completed' THEN 1 END) AS completed_walks
+      FROM Users U
+      LEFT JOIN WalkRatings R ON R.walker_id = U.user_id
+      LEFT JOIN WalkRequests W ON R.request_id = W.request_id
+      WHERE U.role = 'walker'
+      GROUP BY U.username
+    `);
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch walker summaries' });
+  }
+});
+
 module.exports = app;
