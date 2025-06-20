@@ -38,17 +38,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.get('/api/dogs', async (req, res) => {
-  try {
-    const [rows] = await pool.query(`
-      SELECT Dogs.name AS dog_name, Dogs.size, Users.username AS owner_username
-      FROM Dogs
-      JOIN Users ON Dogs.owner_id = Users.id
-    `);
-    res.json(rows);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
 
 module.exports = app;
