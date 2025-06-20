@@ -14,11 +14,11 @@ app.use(session({
     secret: 'secret-key-here', // Change this to a secure key in production
     resave: false,
     saveUninitialized: true,
-  }));
+}));
 
   // Connect to database
-  let db;
-  (async () => {
+let db;
+(async () => {
     try {
       db = await mysql.createConnection({
         host: 'localhost',
