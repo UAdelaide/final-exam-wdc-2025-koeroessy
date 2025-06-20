@@ -117,17 +117,17 @@
         }
 
         async function logout() {
-        try {
-          const res = await fetch('/api/users/logout', { method: 'POST' });
-          if (res.ok) {
-            window.location.href = '/index.html'; // Redirect to login
-          } else {
-            alert('Logout failed.');
+          try {
+            const res = await fetch('/api/users/logout', { method: 'POST' });
+            if (res.ok) {
+              window.location.href = '/index.html'; // Redirect to login
+            } else {
+              alert('Logout failed.');
+            }
+          } catch (err) {
+            alert('An error occurred during logout.');
           }
-        } catch (err) {
-          alert('An error occurred during logout.');
         }
-      }
 
         onMounted(() => {
           loadWalks();
