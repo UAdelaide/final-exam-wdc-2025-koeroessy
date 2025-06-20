@@ -43,7 +43,7 @@ app.post('/login', async (req, res) => {
       // checks if rows is not empty meaning username and password is correct
       if (rows.length === 1) {
         req.session.user = rows[0];
-        res.json({ role: rows[0].role });
+        res.json({ role: rows[0].role }); // returns the role of user
       } else {
         res.status(401).json({ error: 'Invalid username or password' });
       }
