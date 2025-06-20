@@ -62,7 +62,7 @@ app.post('/logout', (req, res) => {
       res.clearCookie('connect.sid');
       res.json({ message: 'Logged out successfully' });
     });
-  });
+});
 
 // Routes
 const walkRoutes = require('./routes/walkRoutes');
