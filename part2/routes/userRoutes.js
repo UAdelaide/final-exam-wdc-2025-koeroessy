@@ -55,25 +55,5 @@ router.post('/login', async (req, res) => {
   }
 });
 
-router.post('/login', async (req, res) => {
-    const { username, password } = req.body;
-    try {
-        const [rows] = await db.execute(
-        'SELECT user_id, username, role FROM Users WHERE username = ? AND password_hash = ?',
-        [username, password] // get username and password from login if they match
-      );
-
-      // checks if rows is not empty meaning username and password is correct
-      if (rows.length === 1) {
-        req.session.user = rows[0];
-        res.json({ role: rows[0].role }); // returns the role of user
-      } else {
-        res.status(401).json({ error: 'Invalid username or password' });
-      }
-    } catch (err) {
-      console.error('Login error:', err);
-      res.status(500).json({ error: 'Server error during login' });
-    }
-});
 
 module.exports = router;
