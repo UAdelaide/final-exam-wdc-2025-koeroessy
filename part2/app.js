@@ -40,7 +40,7 @@ app.post('/login', async (req, res) => {
         [username, password] // get username and password from login if they match
       );
 
-      if (rows.length === 1) { // check if rows is not empty and therefore username and password is correct
+      if (rows.length === 1) { // checks if rows is not empty meaning username and password is correct
         req.session.user = rows[0];
         res.json({ role: rows[0].role });
       } else {
