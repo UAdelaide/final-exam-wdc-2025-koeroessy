@@ -99,14 +99,14 @@
         }
 
         async function loadDogs() {
-        try {
-          const res = await fetch('/api/mydogs'); // Make sure this API returns logged-in owner's dogs
-          if (!res.ok) throw new Error('Failed to load your dogs');
-          dogs.value = await res.json();
-        } catch (err) {
-          error.value = err.message;
+          try {
+            const res = await fetch('/mydogs'); // Returns logged in users dogs
+            if (!res.ok) throw new Error('Failed to load your dogs');
+            dogs.value = await res.json();
+          } catch (err) {
+            error.value = err.message;
+          }
         }
-      }
 
         async function submitWalkRequest() {
           try {
