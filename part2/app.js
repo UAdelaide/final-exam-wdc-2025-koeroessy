@@ -11,12 +11,12 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '/public')));
 
 app.use(session({
-    secret: 'secret-key-here', // Change this to a secure key in production
+    secret: 'secret-key-here',
     resave: false,
     saveUninitialized: true,
 }));
 
-  // Connect to database
+
 let db;
 (async () => {
     try {
@@ -32,7 +32,7 @@ let db;
     }
 })();
 
-  // Login route
+
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
     try {
@@ -42,7 +42,7 @@ app.post('/login', async (req, res) => {
       );
 
       if (rows.length === 1) {
-        req.session.user = rows[0]; // Store user in session
+        req.session.user = rows[0];
         res.json({ role: rows[0].role });
       } else {
         res.status(401).json({ error: 'Invalid username or password' });
