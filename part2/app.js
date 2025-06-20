@@ -30,13 +30,13 @@ let db;
     } catch (err) {
       console.error('Database connection failed:', err);
     }
-  })();
+})();
 
   // Login route
-  app.post('/login', async (req, res) => {
+app.post('/login', async (req, res) => {
     const { username, password } = req.body;
     try {
-      const [rows] = await db.execute(
+        const [rows] = await db.execute(
         'SELECT user_id, username, role FROM Users WHERE username = ? AND password_hash = ?',
         [username, password]
       );
@@ -51,7 +51,7 @@ let db;
       console.error('Login error:', err);
       res.status(500).json({ error: 'Server error during login' });
     }
-  });
+});
 
 // Routes
 const walkRoutes = require('./routes/walkRoutes');
