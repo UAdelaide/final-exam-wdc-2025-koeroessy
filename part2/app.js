@@ -37,7 +37,7 @@ app.post('/login', async (req, res) => {
     try {
         const [rows] = await db.execute(
         'SELECT user_id, username, role FROM Users WHERE username = ? AND password_hash = ?',
-        [username, password]
+        [username, password] // get userame
       );
 
       if (rows.length === 1) {
