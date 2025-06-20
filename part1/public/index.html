@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DOGGO!!! 🐶🐶🐶</title>
+  <script src="https://unpkg.com/vue@3"></script>
+  <style>
+    body {
+      background: linear-gradient(45deg, red, green, blue, yellow);
+      font-family: Comic Sans MS;
+      color: lime;
+      font-size: 24px;
+      animation: blink 0.5s infinite alternate;
+    }
+
+    @keyframes blink {
+      from { opacity: 0.1; }
+      to { opacity: 1; }
+    }
+
+    button {
+      font-size: 20px;
+      margin: 50px;
+    }
+
+    img {
+      width: 300px;
+      height: auto;
+      border: 5px dashed hotpink;
+    }
+
+    /* Way too small */
+    .dog-info {
+      font-size: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>🦴 Welcome to the CRAZY DOG ZONE 🐾</h1>
+
+    <!-- Unlabeled input breaks accessibility -->
+    <input type="text" placeholder="???">
+
+    <!-- Button placed far from what it affects, breaks kinematic load -->
+    <button @click="getDog">PRESS THIS BUTTON!!</button>
+
+    <div v-if="dogImage">
+      <h2>DOGGO OF THE DAY</h2>
+      <!-- No alt attribute: breaks accessibility -->
+      <img :src="dogImage">
+      <p class="dog-info">His name is... Rufus? maybe. He barks. He’s big or small. Who knows?!</p>
+    </div>
+
+    <!-- Confusing multiple colors, emojis, animations: cognitive overload -->
+    <marquee behavior="alternate" scrollamount="15">🐕 DOGS DOGS DOGS DOGS 🐩</marquee>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          dogImage: ''
+        }
+      },
+      methods: {
+        async getDog() {
+          try {
+            const res = await fetch('https://dog.ceo/api/breeds/image/random');
+            const data = await res.json();
+            this.dogImage = data.message;
+          } catch (err) {
+            alert("Oops! Error fetching dog.");
+          }
+        }
+      }
+    });
+
+    app.mount('#app');
+  </script>
+</body>
+</html>
