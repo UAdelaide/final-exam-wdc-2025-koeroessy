@@ -59,6 +59,16 @@
           }
         }
 
+        async function getCurrentUser() {
+        try {
+          const res = await fetch('/api/users/me');
+          if (!res.ok) throw new Error('Not logged in');
+          currentUser.value = await res.json();
+        } catch (err) {
+          error.value = 'Failed to load current user';
+        }
+      }
+
         async function applyToWalk(requestId) {
           try {
             const res = await fetch(`/api/walks/${requestId}/apply`, {
@@ -93,6 +103,7 @@
 
         onMounted(() => {
           loadWalkRequests();
+          getCurrentUser();
         });
 
         return {
