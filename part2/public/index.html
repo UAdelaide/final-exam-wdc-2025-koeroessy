@@ -86,7 +86,7 @@
             this.error = 'Server error';
           }
         },
-        
+
         async loadDogs() {
           try {
             const res = await fetch('/api/dogs');
@@ -110,6 +110,9 @@
             this.error = 'Failed to load dog list';
           }
         }
+      }
+      mounted() {
+        this.loadDogs(); // Call this when the homepage loads
       }
     }).mount('#app');
   </script>
