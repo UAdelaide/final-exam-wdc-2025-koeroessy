@@ -30,8 +30,8 @@ let db;
     // Connect to MySQL and select the DogWalkService database
     db = await mysql.createConnection({
       host: 'localhost',
-      user: 'root', // Change if needed
-      password: '', // Your MySQL password
+      user: 'root',
+      password: '',
       database: 'DogWalkService'
     });
 
